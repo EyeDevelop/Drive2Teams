@@ -11,6 +11,7 @@ def main():
     if not os.path.isfile(get_path("auth", "credentials.json")):
         LOGGER.fatal("Cannot find credentials.json in directory auth. Please generate these via the Google Developer Console first.")
         LOGGER.fatal("It can be found here: https://console.developers.google.com/")
+        os.mkdir(get_path("auth"), mode=0o755)
         exit(1)
 
     get_drive_files()
