@@ -209,7 +209,7 @@ def get_drive_files():
 
         # Get if this file is a Google Apps generated one.
         if "type" not in file.keys():
-            file["type"] = "null"
+            file["type"] = "other"
 
         file_type = file["type"]
         if file_type not in ["gapps", "other"]:
