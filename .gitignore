@@ -133,4 +133,4 @@ credentials.json
 drive/*
 !drive
 
-documents.json
+drive_documents.json
