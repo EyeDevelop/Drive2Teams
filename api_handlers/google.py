@@ -12,7 +12,7 @@ from utils.logger import Logger
 from utils.filehandler import get_path
 
 LOGGER = Logger(logger_name="Drive2Teams ; Drive", filename=None)
-SCOPES = ["https://www.googleapis.com/auth/drive.metadata.readonly"]  # Remove file token.pickle if changing these.
+SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]  # Remove file token.pickle if changing these.
 
 
 def sign_in():
@@ -85,9 +85,9 @@ def get_id_for_drive_filename(drive_filename, service):
 
     while True:
         response = service.files().list(
-            q="application/vnd.google-apps.document",
+            q="name = '%s'" % drive_filename,
             fields="nextPageToken, files(id, name)",
-            page_token=page_token
+            pageToken=page_token
         ).execute()
 
         response_len = len(response.get("files", []))
@@ -123,15 +123,13 @@ def download_google_drive_file(filename, drive_file_id, service):
         os.mkdir(get_path("drive"), mode=0o755)
 
     # Do the actual download.
+    LOGGER.info("Downloading file %s..." % filename)
     with open(get_path("drive", filename), "wb") as fp:
         downloader = MediaIoBaseDownload(fp, request)
 
         done = False
         while not done:
             status, done = downloader.next_chunk()
-            LOGGER.info("\rDownloading %s (%d%%)" % (filename, int(status.progress() * 100)))
-
-    LOGGER.info("\r\n")
 
 
 def download_google_docs_file(filename, drive_file_id, service, file_mimetype):
@@ -153,15 +151,13 @@ def download_google_docs_file(filename, drive_file_id, service, file_mimetype):
         os.mkdir(get_path("drive"), mode=0o755)
 
     # Do the download.
+    LOGGER.info("Downloading document %s..." % (filename + mimetypes.guess_extension(file_mimetype)))
     with open(get_path("drive", filename + mimetypes.guess_extension(file_mimetype)), "wb") as fp:
         downloader = MediaIoBaseDownload(fp, request)
 
         done = False
         while not done:
             status, done = downloader.next_chunk()
-            LOGGER.info("\rDownloading document %s (%d%%)" % (filename, int(status.progress() * 100)))
-
-    LOGGER.info("\r\n")
 
 
 def get_drive_files():
