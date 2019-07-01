@@ -126,5 +126,11 @@ dmypy.json
 .idea/
 
 auth/*
+!auth
 token.pickle
 credentials.json
+
+drive/*
+!drive
+
+documents.json
