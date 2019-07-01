@@ -162,7 +162,7 @@ def download_google_docs_file(filename, drive_file_id, service, file_mimetype):
 
 def get_drive_files():
     """
-    Read file documents.json to get the files wanted. Then, download these files as docx.
+    Read file drive_documents.json to get the files wanted. Then, download these files as docx.
 
     :return: Nothing.
     """
@@ -170,16 +170,16 @@ def get_drive_files():
     # Get access to Google Drive first.
     service = build("drive", "v3", credentials=sign_in())
 
-    # Check if the documents.json exists, if not, create it.
-    if not os.path.isfile(get_path("documents.json")):
-        LOGGER.debug("documents.json not found. Making a dummy.")
+    # Check if the drive_documents.json exists, if not, create it.
+    if not os.path.isfile(get_path("drive_documents.json")):
+        LOGGER.debug("drive_documents.json not found. Making a dummy.")
 
-        with open(get_path("documents.json"), "wt") as requested_fp:
+        with open(get_path("drive_documents.json"), "wt") as requested_fp:
             json.dump({}, requested_fp)
 
-    # Get the files we need from documents.json.
-    with open("documents.json", "rt") as requested_fp:
-        LOGGER.debug("Loading documents.json")
+    # Get the files we need from drive_documents.json.
+    with open("drive_documents.json", "rt") as requested_fp:
+        LOGGER.debug("Loading drive_documents.json")
         requested = json.load(requested_fp)
 
     # Search for the files in Google Drive,
@@ -190,7 +190,7 @@ def get_drive_files():
 
         # Try to get the file ID so it can be downloaded.
         if "id" not in file.keys():
-            LOGGER.debug("ID not found in documents.json for %s. Trying to fetch based on filename." % filename)
+            LOGGER.debug("ID not found in drive_documents.json for %s. Trying to fetch based on filename." % filename)
             drive_file_id = get_id_for_drive_filename(filename, service)
         else:
             drive_file_id = file["id"]
