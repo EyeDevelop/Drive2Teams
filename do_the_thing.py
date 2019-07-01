@@ -8,8 +8,8 @@ LOGGER = Logger(logger_name="Drive2Teams ; Main", filename=None)
 
 
 def main():
-    if not os.path.isfile(get_path("auth", "credentials.json")):
-        LOGGER.fatal("Cannot find credentials.json in directory auth. Please generate these via the Google Developer Console first.")
+    if not os.path.isfile(get_path("auth", "google.json")):
+        LOGGER.fatal("Cannot find google.json in directory auth. Please generate these via the Google Developer Console first.")
         LOGGER.fatal("It can be found here: https://console.developers.google.com/")
         os.mkdir(get_path("auth"), mode=0o755)
         exit(1)

@@ -19,7 +19,7 @@ def sign_in():
     """
     Log in to the Google Drive API.
     This is done by first loading a token.pickle file if it exists (also refreshes the token if necessary),
-    or by logging in using a credentials.json when it doesn't.
+    or by logging in using a google.json when it doesn't.
 
     The token.pickle file is created automatically when the authorisation process
     completes successfully.
@@ -53,11 +53,11 @@ def sign_in():
         else:
             creds = None
 
-    # Do the login using credentials.json
+    # Do the login using google.json
     if not creds:
-        LOGGER.debug("Falling back to credentials.json log in.")
+        LOGGER.debug("Falling back to google.json log in.")
 
-        flow = InstalledAppFlow.from_client_secrets_file(get_path("auth", "credentials.json"), SCOPES)
+        flow = InstalledAppFlow.from_client_secrets_file(get_path("auth", "google.json"), SCOPES)
         creds = flow.run_local_server(port=0)
 
     # Save the credentials for next time.
