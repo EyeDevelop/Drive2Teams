@@ -1,0 +1,12 @@
+{
+    "My Document": {
+        "type": "gapps",
+        "format": "application/pdf"
+    },
+
+    "My Filename That Doesn't Exist in Drive": {
+        "id": "<GoogleDriveFileID>",
+        "type": "other",
+        "format": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    }
+}
