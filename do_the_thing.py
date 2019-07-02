@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os
 
 from api_handlers.google import get_drive_files

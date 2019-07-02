@@ -11,6 +11,7 @@ the Sharepoint folder for one of my Teams. So I created this.
 
 ### How to use
 #### Requirements
+* Python3
 * A Google Developer Console ```authentication.json```
 
 First, move the ```authentication.json``` to ```auth/google.json```.
@@ -20,6 +21,8 @@ Then, create a ```drive_documents.json``` file containing the documents you want
 from Google Drive and the format you want them as.
 
 The files will be downloaded in a separate ```drive``` folder with the names as in ```drive_documents.json```.
+
+Run the ```do_the_thing.py``` with Python3.
 
 ### The ```drive_documents.json``` format:
 ```json
